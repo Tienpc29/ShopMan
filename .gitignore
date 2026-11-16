@@ -1,0 +1,6 @@
+target/
+dist/
+nbproject/private/
+.env
+*.log
+src/main/resources/db.properties

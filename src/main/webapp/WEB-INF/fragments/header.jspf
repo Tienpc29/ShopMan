@@ -1,0 +1,25 @@
+<%@ page pageEncoding="UTF-8" %>
+<script src="assets/app.js" charset="UTF-8" defer></script>
+<a class="skip-link" href="#main-content">Chuyển đến nội dung</a>
+<%
+Object headerMember = session.getAttribute("member");
+String headerPath = request.getServletPath();
+boolean headerHome = headerPath.equals("/gdChinhQL.jsp") || headerPath.equals("/gdChinhKH.jsp");
+boolean headerProducts = headerPath.equals("/gdQuanLySP.jsp") || headerPath.equals("/gdThemSP.jsp") || headerPath.equals("/doThemSP.jsp");
+boolean headerShopping = headerPath.equals("/gdDatHang.jsp") || headerPath.equals("/gdTimSP.jsp") || headerPath.equals("/gdChiTietSP.jsp");
+%>
+<header><div class="inner"><a class="brand" href="index.jsp">ShopMan</a>
+<% if (headerMember instanceof Member3) { %>
+<nav class="site-nav" aria-label="Điều hướng chính">
+<a href="index.jsp" <%= headerHome ? "aria-current=\"page\"" : "" %>>Trang chủ</a>
+<% if (headerMember instanceof Manager3) { %>
+<a href="gdQuanLySP.jsp" <%= headerProducts ? "aria-current=\"page\"" : "" %>>Mặt hàng</a>
+<% } else { %>
+<a href="gdDatHang.jsp" <%= headerShopping ? "aria-current=\"page\"" : "" %>>Đặt hàng</a>
+<a href="gdGioHang.jsp" <%= headerPath.equals("/gdGioHang.jsp") ? "aria-current=\"page\"" : "" %>>Giỏ hàng</a>
+<% } %>
+</nav>
+<div class="account"><span class="account-name"><%= Web.h(((Member3) headerMember).getName()) %></span>
+<form action="doDangXuat.jsp" method="post"><input type="hidden" name="csrf" value="<%= Web.csrf(session) %>"><button class="secondary" type="submit">Đăng xuất</button></form></div>
+<% } %>
+</div></header>

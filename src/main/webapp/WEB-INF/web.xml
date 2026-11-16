@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
+  <display-name>ShopMan</display-name>
+  <filter><filter-name>AuthFilter</filter-name><filter-class>web.AuthFilter</filter-class></filter>
+  <filter-mapping><filter-name>AuthFilter</filter-name><url-pattern>/*</url-pattern></filter-mapping>
+  <!-- Đăng ký chính trang JSP với multipart để request.getPart("image") hoạt động. -->
+  <servlet><servlet-name>doThemSP</servlet-name><jsp-file>/doThemSP.jsp</jsp-file>
+    <multipart-config><max-file-size>2097152</max-file-size><max-request-size>3145728</max-request-size><file-size-threshold>0</file-size-threshold></multipart-config>
+  </servlet>
+  <servlet-mapping><servlet-name>doThemSP</servlet-name><url-pattern>/doThemSP.jsp</url-pattern></servlet-mapping>
+  <servlet><servlet-name>ProductImage</servlet-name><servlet-class>web.ProductImageServlet</servlet-class></servlet>
+  <servlet-mapping><servlet-name>ProductImage</servlet-name><url-pattern>/product-images/*</url-pattern></servlet-mapping>
+  <session-config><session-timeout>30</session-timeout><cookie-config><http-only>true</http-only></cookie-config><tracking-mode>COOKIE</tracking-mode></session-config>
+  <welcome-file-list><welcome-file>index.jsp</welcome-file></welcome-file-list>
+  <error-page><exception-type>java.lang.Exception</exception-type><location>/loi.jsp</location></error-page>
+</web-app>
