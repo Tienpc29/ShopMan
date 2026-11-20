@@ -5,8 +5,7 @@
 <main id="main-content">
 <%@ include file="WEB-INF/fragments/message.jspf" %>
 
-<% // Bước 3–7 và 25–29: lấy danh sách và đóng gói trong Product3DAO.
-Product3[] products = new Product3DAO().getAllProduct(); %>
+<% Product3[] products = new Product3DAO().getAllProduct(); %>
 <h1>Quản lý thông tin mặt hàng</h1>
 <p class="page-intro">Theo dõi giá, số lượng tồn kho và thêm mặt hàng mới.</p>
 <div class="actions"><a class="button" href="gdThemSP.jsp">Thêm thông tin mặt hàng</a><a href="gdChinhQL.jsp">Quay lại</a></div>

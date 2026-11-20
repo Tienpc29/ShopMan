@@ -80,7 +80,8 @@ class ShopManWebTest {
         assertEquals(before+1, DbFixture.scalar(db, "SELECT COUNT(*) FROM tblInvoice3"));
         post("doLuuDonHang.jsp", form);
         assertEquals(before+1, DbFixture.scalar(db, "SELECT COUNT(*) FROM tblInvoice3"));
-        assertTrue(get("gdGioHang.jsp").body().contains("Giỏ hàng đang trống"));
+        String emptyCart = get("gdGioHang.jsp").body();
+        assertTrue(Pattern.compile("<button[^>]*\\bdisabled\\b[^>]*>\\s*Đặt hàng\\s*</button>").matcher(emptyCart).find());
         assertEquals(200, get("loi.jsp").statusCode());
     }
     @Test void invalidQuantityAndLogout() throws Exception {

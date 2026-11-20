@@ -11,11 +11,9 @@ synchronized (session) {
     List<InvoiceDetail3> cart = (List<InvoiceDetail3>) session.getAttribute("cart");
     Customer3 cus = (Customer3) session.getAttribute("member");
     try {
-        // Bước 32–33: lấy cusId từ phiên đăng nhập, không lấy từ hidden input của trình duyệt.
         boolean result = new Invoice3DAO().createInvoice(cart == null ? null : cart.toArray(new InvoiceDetail3[0]), cus.getId());
         if (!result) throw new java.sql.SQLException("Không lưu được đơn hàng.");
         session.removeAttribute("cart"); session.removeAttribute("checkoutToken");
-        // Bước 38–39: trả kết quả và thông báo thành công, chờ nhân viên duyệt.
         session.setAttribute("message", "Đặt hàng thành công. Đơn hàng đang chờ được duyệt.");
         response.sendRedirect("gdDatHang.jsp");
     } catch (IllegalArgumentException e) {

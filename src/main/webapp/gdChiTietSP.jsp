@@ -4,7 +4,6 @@
 Product3 selectedProduct;
 try {
     int id = Validation.integer(request.getParameter("id"), "ID mặt hàng", 1);
-    // Bước 16–20: lấy thông tin theo id bằng đúng hàm trong tuần tự.
     selectedProduct = new Product3DAO().getProductById(id);
     if (selectedProduct == null) throw new IllegalArgumentException("Mặt hàng không tồn tại.");
 } catch (IllegalArgumentException e) {
@@ -21,7 +20,6 @@ if ("POST".equals(request.getMethod())) {
             for (InvoiceDetail3 line : cart) if (line.getProduct().getId() == selectedProduct.getId()) existing = line;
             long sum = (long) quantity + (existing == null ? 0 : existing.getQuantity());
             if (sum > selectedProduct.getStockQuantity()) throw new IllegalArgumentException("Tổng số lượng trong giỏ vượt quá tồn kho.");
-            // Bước 23–24: tạo và đóng gói InvoiceDetail3; chưa lưu vào CSDL.
             if (existing == null) {
                 InvoiceDetail3 detail = new InvoiceDetail3();
                 detail.setProduct(selectedProduct); detail.setQuantity(quantity); detail.setUnitPrice(selectedProduct.getSalePrice());
@@ -29,7 +27,6 @@ if ("POST".equals(request.getMethod())) {
             } else { existing.setQuantity((int) sum); existing.setUnitPrice(selectedProduct.getSalePrice()); existing.setProduct(selectedProduct); }
             session.setAttribute("cart", cart); session.removeAttribute("checkoutToken");
         }
-        // Bước 25–26: quay lại trang đặt hàng, có thể chọn tiếp.
         session.setAttribute("message", "Thêm vào giỏ hàng thành công."); response.sendRedirect("gdDatHang.jsp"); return;
     } catch (IllegalArgumentException e) { detailError = e.getMessage(); }
 }

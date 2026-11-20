@@ -5,9 +5,8 @@
 <main id="main-content">
 <%@ include file="WEB-INF/fragments/message.jspf" %>
 
-<% List<InvoiceDetail3> cart = (List<InvoiceDetail3>) session.getAttribute("cart"); int lineCount = cart == null ? 0 : cart.size(); %>
 <h1>Đặt mua hàng trực tuyến</h1>
 <p class="page-intro">Tìm mặt hàng, chọn số lượng và thêm vào giỏ. Bạn có thể chọn nhiều mặt hàng trước khi xác nhận đặt hàng.</p>
-<div class="actions"><a class="button" href="gdTimSP.jsp">Tìm hàng hóa</a><a class="button secondary" href="gdGioHang.jsp">Xem giỏ hàng (<%= lineCount %>)</a><a href="gdChinhKH.jsp">Quay lại</a></div>
+<div class="actions"><a class="button" href="gdTimSP.jsp">Tìm hàng hóa</a><a class="button secondary" href="gdGioHang.jsp">Xem Giỏ Hàng</a><a href="gdChinhKH.jsp">Quay lại</a></div>
 
 </main></body></html>

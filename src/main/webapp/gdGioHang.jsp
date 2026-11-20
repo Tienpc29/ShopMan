@@ -6,7 +6,6 @@ String checkoutToken;
 synchronized (session) {
     cart = (List<InvoiceDetail3>) session.getAttribute("cart");
     if (cart == null) { cart = new ArrayList<>(); session.setAttribute("cart", cart); }
-    // Nút xóa là thao tác hỗ trợ trong thiết kế giao diện giỏ hàng.
     if ("POST".equals(request.getMethod()) && "remove".equals(request.getParameter("action"))) {
         try { int id = Validation.integer(request.getParameter("id"), "ID mặt hàng", 1); cart.removeIf(line -> line.getProduct().getId() == id); }
         catch (IllegalArgumentException e) { session.setAttribute("message", e.getMessage()); }
@@ -27,7 +26,7 @@ BigDecimal total = BigDecimal.ZERO;
 
 <h1>Giỏ hàng của bạn</h1>
 <div class="customer-info"><p>Khách hàng: <strong><%= Web.h(cus.getName()) %></strong></p><p class="hint">Số điện thoại: <%= Web.h(cus.getPhone()) %><br>Địa chỉ: <%= Web.h(cus.getAddress()) %></p></div>
-<% if (cart.isEmpty()) { %><p class="empty-state">Giỏ hàng đang trống. <a href="gdTimSP.jsp">Tìm mặt hàng</a></p><% } else { %>
+<% if (!cart.isEmpty()) { %>
 <div class="table-wrap"><table class="product-table"><thead><tr><th>Mã mặt hàng</th><th>Tên mặt hàng</th><th class="num">Số lượng</th><th class="num">Đơn giá</th><th class="num">Thành tiền</th><th>Thao tác</th></tr></thead><tbody>
 <% for (InvoiceDetail3 d : cart) { BigDecimal amount = new BigDecimal(Float.toString(d.getUnitPrice())).multiply(BigDecimal.valueOf(d.getQuantity())); total = total.add(amount); %>
 <tr><td><%= Web.h(d.getProduct().getCode()) %></td><td><div class="line-product">

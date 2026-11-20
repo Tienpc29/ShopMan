@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 
-/** Lớp kết nối chung. Mỗi thao tác dùng kết nối riêng để các request không dùng chung transaction. */
 public class DAO {
     @FunctionalInterface
     public interface ConnectionFactory { Connection open() throws SQLException; }

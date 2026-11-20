@@ -8,7 +8,6 @@ public class Product3DAO extends DAO {
     public Product3DAO() { super(); }
     public Product3DAO(ConnectionFactory factory) { super(factory); }
 
-    // Module thêm hàng, bước 4 và 26: đọc dữ liệu, đóng gói Product3[].
     public Product3[] getAllProduct() throws SQLException {
         try (Connection con = openConnection();
              PreparedStatement ps = con.prepareStatement("SELECT * FROM tblProduct3 ORDER BY id DESC");
@@ -19,7 +18,6 @@ public class Product3DAO extends DAO {
         }
     }
 
-    // Module thêm hàng, bước 17: kiểm tra mã nghiệp vụ code, không kiểm tra id tự sinh.
     public boolean checkExists(String code) throws SQLException {
         try (Connection con = openConnection();
              PreparedStatement ps = con.prepareStatement("SELECT id FROM tblProduct3 WHERE code = ?")) {
@@ -28,7 +26,6 @@ public class Product3DAO extends DAO {
         }
     }
 
-    // Module thêm hàng, bước 20. UNIQUE(code) vẫn bảo vệ nếu hai request cùng thêm một mã.
     public boolean addProduct(Product3 p) throws SQLException {
         util.Validation.product(p);
         String sql = "INSERT INTO tblProduct3(code,name,unit,image,importPrice,salePrice,description,category,stockQuantity) VALUES(?,?,?,?,?,?,?,?,?)";
@@ -42,7 +39,6 @@ public class Product3DAO extends DAO {
         }
     }
 
-    // Module đặt hàng, bước 9: tìm theo tên; ký tự % và _ của khách được tìm như ký tự thường.
     public Product3[] searchProduct(String name) throws SQLException {
         String keyword = name == null ? "" : name.trim();
         keyword = keyword.replace("!", "!!").replace("%", "!%").replace("_", "!_");
@@ -57,7 +53,6 @@ public class Product3DAO extends DAO {
         }
     }
 
-    // Module đặt hàng, bước 17: liên kết sản phẩm bằng id.
     public Product3 getProductById(int id) throws SQLException {
         try (Connection con = openConnection(); PreparedStatement ps = con.prepareStatement("SELECT * FROM tblProduct3 WHERE id = ?")) {
             ps.setInt(1, id);

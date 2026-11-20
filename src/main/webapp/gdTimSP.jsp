@@ -10,7 +10,6 @@
 <%
 String name = request.getParameter("name");
 if (name != null && !name.isBlank()) {
-    // Bước 8–12: tìm theo tên, DAO trả về Product3[].
     Product3[] found = new Product3DAO().searchProduct(name);
 %>
 <h2>Kết quả tìm kiếm</h2>

@@ -3,7 +3,6 @@ import model.*;
 import java.sql.*;
 import util.Passwords;
 
-/** Đăng nhập là phần hỗ trợ để chạy hai module sau đăng nhập. */
 public class Member3DAO extends DAO {
     public Member3DAO() { super(); }
     public Member3DAO(ConnectionFactory factory) { super(factory); }
